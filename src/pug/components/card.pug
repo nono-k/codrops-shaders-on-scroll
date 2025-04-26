@@ -1,0 +1,10 @@
+mixin card(title, imgData, tags, link, blank)
+  a(href=link, target=blank ? '_blank' : '_self').c-card
+    .c-card__img
+      +img(imgData.src, imgData.alt, imgData.width, imgData.height)
+    .c-card__tags
+      each tag in tags
+        .c-card__tag
+          |!{tag}
+    .c-card__title
+      |!{title}

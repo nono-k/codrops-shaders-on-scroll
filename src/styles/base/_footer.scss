@@ -1,0 +1,15 @@
+@use 'mixin';
+
+.l-footer {
+  margin-top: 40px;
+  background: #222;
+  padding: 24px 16px;
+  color: #fff;
+  &__copyright {
+    display: block;
+    text-align: center;
+    @include mixin.mobile {
+      text-align: left;
+    }
+  }
+}

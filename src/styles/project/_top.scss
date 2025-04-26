@@ -1,0 +1,23 @@
+@use 'mixin';
+
+h1 {
+  font-size: 4rem;
+  @include mixin.mobile {
+    color: red;
+  }
+}
+
+.p-top {
+  &__img {
+    max-width: 400px;
+    margin-inline: auto;
+    margin-top: 40px;
+  }
+  &__card-wrap {
+    margin-top: 60px;
+    margin-inline: 16px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+}

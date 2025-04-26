@@ -1,0 +1,10 @@
+mixin meta(title, description, ogp, url)
+  meta(charset="UTF-8")
+  meta(name="viewport", content="width=device-width, initial-scale=1.0")
+  title !{title}
+  meta(name="description", content=description)
+  meta(property="og:title", content=title)
+  meta(property="og:description", content=description)
+  meta(property="og:image", content=ogp)
+  meta(property="og:url", content=url)
+  meta(name="twitter:card", content="summary_large_image")

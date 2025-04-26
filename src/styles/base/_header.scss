@@ -1,0 +1,10 @@
+.l-header {
+  background: #eee;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  &__list {
+    display: flex;
+    gap: 12px;
+  }
+}

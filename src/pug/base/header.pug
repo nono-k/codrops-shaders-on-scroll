@@ -1,0 +1,11 @@
+include ../data/header_data
+
+header.l-header.js-header
+  a(href="/").l-header__logo
+    |Logo
+  nav.l-header__nav
+    ul.l-header__list
+      each item in headerData
+        li.l-header__item
+          a(href=item.link).l-header__link
+            |!{item.text}

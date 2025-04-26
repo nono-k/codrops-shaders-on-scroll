@@ -1,0 +1,21 @@
+.c-card {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid #ccc;
+  &__tags {
+    display: flex;
+    gap: 8px;
+  }
+  &__tag {
+    font-size: 12px;
+    padding: 4px 8px;
+    background: #222;
+    color: #ffff;
+    border-radius: 6px;
+  }
+  &__title {
+    font-size: 18px;
+  }
+}

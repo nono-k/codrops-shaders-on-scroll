@@ -1,0 +1,18 @@
+include components/card
+
+-
+  const rootDir = '/common/';
+  const bpMobile = '959px';
+
+mixin img(src, alt, w, h)
+  - let _src = rootDir + 'images/' + src;
+  img(src=_src, alt=alt, width=w, height=h)&attributes(attributes)
+
+mixin pic(pc, sp, alt, pcw, pch, spw, sph)
+  picture
+    source(media=`(max-width: ${bpMobile})`, srcset= rootDir + 'images/' + sp, width=spw, height=sph)
+    img(src= rootDir + 'images/' + pc, alt=alt, width=pcw, height=pch)&attributes(attributes)
+
+mixin sprite(id, w, h)
+  svg(width=w, height=h)&attributes(attributes)
+    use(xlink:href=`#${id}`)

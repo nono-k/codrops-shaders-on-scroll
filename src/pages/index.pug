@@ -1,0 +1,38 @@
+include ../../src/pug/base/meta
+include ../../src/pug/mixin
+include ../../src/pug/data/top_data
+
+doctype html
+html
+  head
+    +meta(
+      "サンプルサイト",
+      "サンプルサイトの説明文です。",
+      "/common/images/ogp.png",
+      "https://example.com"
+    )
+
+    include ../../src/pug/base/head-assets
+  body
+    include ../../src/pug/base/header
+    h1 Hello, Gulp with Pug & SCSS!
+    p This is a test page.
+
+    - const name = "John"
+    p Hello !{name}
+
+    .swiper
+      .swiper-wrapper
+        - for (var i = 0; i < 9; i++)
+          .swiper-slide
+            img(src=`https://picsum.photos/800/400?random=${i}`, alt="")
+
+    .p-top__img
+      +img('dummy.jpg', 'ダミー画像', 1200, 300)
+
+    .p-top__card-wrap
+      each card in topData.card
+        +card(card.title, card.imgData, card.tags, card.link, card.blank)
+
+    include ../../src/pug/base/footer
+    include ../../src/pug/base/body-append
