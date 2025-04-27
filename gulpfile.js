@@ -7,6 +7,8 @@ const autoprefixer = require("autoprefixer");
 const browserSync = require("browser-sync").create();
 const include = require("gulp-include");
 const uglify = require("gulp-uglify");
+const tap = require("gulp-tap");
+const path = require("path");
 
 
 // ** Pug のコンパイル **
@@ -59,6 +61,19 @@ const copyImages = () => {
     .pipe(gulp.dest("dist/common/images"));
 };
 
+const compileGLSL = () => {
+  return gulp
+    .src("src/shaders/**/*.glsl")
+    .pipe(plumber())
+    .pipe(tap(function (file) {
+      const contents = file.contents.toString();
+      file.contents = Buffer.from(`export default ${JSON.stringify(contents)};`)
+      file.path = file.path.replace(/\.glsl$/, ".js");
+    }))
+    .pipe(gulp.dest("dist/common/shaders"))
+    .pipe(browserSync.stream());
+};
+
 // ** ブラウザの自動リロード設定 **
 const serve = () => {
   browserSync.init({
@@ -74,6 +89,7 @@ const serve = () => {
   gulp.watch("src/styles/**/*.scss", compileSass);
   gulp.watch("src/scripts/**/*.js", compileJS);
   gulp.watch("src/public/images/**/*", copyImages);
+  gulp.watch("src/shaders/**/*.glsl", compileGLSL);
   gulp.watch("dist/**/*.html").on("change", browserSync.reload);
 };
 
@@ -84,7 +100,8 @@ exports.default = gulp.series(
     compileSass,
     compileJS,
     compileJSVendor,
-    copyImages
+    copyImages,
+    compileGLSL
   ),
   serve
 );
