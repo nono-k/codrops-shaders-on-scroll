@@ -14,25 +14,19 @@ html
 
     include ../../src/pug/base/head-assets
   body
-    include ../../src/pug/base/header
-    h1 Hello, Gulp with Pug & SCSS!
-    p This is a test page.
+    .content
+      .scroll__stage
+        .scroll__content
+          - const sections = ['Logma', 'Naos', 'Chara']
+            each section, index in sections
+              section.section
+                .section__title
+                  h1.section__title-number= index < 9 ? `0${index + 1}` : index + 1
 
-    - const name = "John"
-    p Hello !{name}
+                  h2.section__title-text= section
 
-    .swiper
-      .swiper-wrapper
-        - for (var i = 0; i < 9; i++)
-          .swiper-slide
-            img(src=`https://picsum.photos/800/400?random=${i}`, alt="")
+                p.section__paragraph The fireball that we rode was moving – But now we've got a new machine – They got music in the solar system
+                  br
+                  a.section__button Discover
 
-    .p-top__img
-      +img('dummy.jpg', 'ダミー画像', 1200, 300)
-
-    .p-top__card-wrap
-      each card in topData.card
-        +card(card.title, card.imgData, card.tags, card.link, card.blank)
-
-    include ../../src/pug/base/footer
     include ../../src/pug/base/body-append

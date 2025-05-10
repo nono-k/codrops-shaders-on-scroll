@@ -17,7 +17,7 @@ const compilePug = () => {
     .src(["src/pages/**/*.pug", "!src/pug/**"]) // pug直下で始まるファイルは対象外
     .pipe(plumber()) // エラーが発生しても止まらないようにする
     .pipe(pug({ pretty: true })) // PugをHTMLに変換（圧縮しない）
-    .pipe(gulp.dest("dist")) // 出力先
+    .pipe(gulp.dest("docs")) // 出力先
     .pipe(browserSync.stream());
 };
 
@@ -28,7 +28,7 @@ const compileSass = () => {
     .pipe(plumber())
     .pipe(sass())
     .pipe(postcss([autoprefixer()]))
-    .pipe(gulp.dest("dist/common/css"))
+    .pipe(gulp.dest("docs/common/css"))
     .pipe(browserSync.stream());
 };
 
@@ -41,7 +41,7 @@ const compileJS = () => {
     ])
     .pipe(include())
     .pipe(uglify())
-    .pipe(gulp.dest("dist/common/js"))
+    .pipe(gulp.dest("docs/common/js"))
     .pipe(browserSync.stream());
 }
 
@@ -52,13 +52,13 @@ const compileJSVendor = () => {
       includePaths: [__dirname + "/node_modules"]
     }))
     .pipe(uglify())
-    .pipe(gulp.dest("dist/common/js"))
+    .pipe(gulp.dest("docs/common/js"))
     .pipe(browserSync.stream());
 }
 
 const copyImages = () => {
   return gulp.src("src/public/images/**/*", { encoding: false })
-    .pipe(gulp.dest("dist/common/images"));
+    .pipe(gulp.dest("docs/common/images"));
 };
 
 const compileGLSL = () => {
@@ -70,14 +70,14 @@ const compileGLSL = () => {
       file.contents = Buffer.from(`export default ${JSON.stringify(contents)};`)
       file.path = file.path.replace(/\.glsl$/, ".js");
     }))
-    .pipe(gulp.dest("dist/common/shaders"))
+    .pipe(gulp.dest("docs/common/shaders"))
     .pipe(browserSync.stream());
 };
 
 // ** ブラウザの自動リロード設定 **
 const serve = () => {
   browserSync.init({
-    server: { baseDir: "dist" },
+    server: { baseDir: "docs" },
     open: true,
     notify: false,
     injectChanges: true,
@@ -90,7 +90,7 @@ const serve = () => {
   gulp.watch("src/scripts/**/*.js", compileJS);
   gulp.watch("src/public/images/**/*", copyImages);
   gulp.watch("src/shaders/**/*.glsl", compileGLSL);
-  gulp.watch("dist/**/*.html").on("change", browserSync.reload);
+  gulp.watch("docs/**/*.html").on("change", browserSync.reload);
 };
 
 // ** デフォルトタスク **

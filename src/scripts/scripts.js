@@ -1,7 +1,7 @@
-//=include _pages/top.js
-//=include _modules/slider.js
+//=include _modules/scrollStage.js
+//=include _modules/smoothScroll.js
 
 window.addEventListener('DOMContentLoaded', () => {
-  new Top();
-  new Slider();
+  new ScrollStage();
+  // new SmoothScroll();
 });
